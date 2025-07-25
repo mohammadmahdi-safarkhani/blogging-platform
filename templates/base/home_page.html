@@ -1,0 +1,18 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+
+<h1>this the home page </h1>
+<h3> you are {% if request.user.is_authenticated %}{{ request.user.username }}{% else %}not logged in{% endif %} </h3>
+{% if request.user.is_authenticated %}
+<a href="{% url 'logout' %}" >press to logout</a><br>
+{% else %}
+<a href="{% url 'login' %}" >press to login</a><br>
+<a href="{% url 'signup' %}" >press to sign up</a>
+{% endif %}
+
+{% endblock  %}
+
+
+
