@@ -5,7 +5,7 @@ from django.utils.text import slugify
 
 class Post(models.Model):
     title = models.CharField(max_length=120)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True,blank=True)
     auther = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
     content = models.CharField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,7 +16,7 @@ class Post(models.Model):
         if not self.slug:
             base_slug = slugify(self.title)
             slug = base_slug                                        # this make the slug and if there is same 
-            counter = 1                                             # slug, adds a number at hte end
+            counter = 1                                             # slug, adds a number at hte end (must the slug field be blank=True)
             while Post.objects.filter(slug=slug).exists():
                 slug = f"{base_slug}-{counter}"
                 counter += 1

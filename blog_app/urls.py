@@ -9,6 +9,7 @@ urlpatterns = [
     path("",lambda request : redirect('home/')),            # home urls 
 #-----------------------------------------------------
     # path("home/post/<slug:slug>", views., name="post_detail"),           # posts urls
+    path("home/post/add", add_post, name="add_post"),           
 
 #-----------------------------------------------------
 

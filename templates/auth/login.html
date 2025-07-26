@@ -1,18 +1,18 @@
 {% extends "base/base.html" %}
 {% block content %}
-
-{% if request.user.is_authenticated %}
-
-<form action="{% url 'logout' %}" method="POST" >
-    {% csrf_token %}
-<button type="submit" class="btn btn-outline-success" >press to logout</button>
-</form>
-{% else %}
-<form action="{% url 'login' %}" method="POST" >
-    {% csrf_token %}
-{{ form.as_p }}
-<button type="submit" class="btn btn-outline-success" >here</button>
-</form>
-{% endif %}
-
-{% endblock  %}
+<div class="container mt-4 text-light">
+    {% if request.user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-warning">Logout</button>
+        </form>
+    {% else %}
+        <h2 class="mb-4">Login</h2>
+        <form action="{% url 'login' %}" method="POST" class="bg-dark p-4 rounded border border-success">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Login</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}
