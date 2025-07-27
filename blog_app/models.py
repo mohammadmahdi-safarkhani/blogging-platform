@@ -7,7 +7,7 @@ class Post(models.Model):
     title = models.CharField(max_length=120)
     slug = models.SlugField(unique=True,blank=True)
     auther = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='posts')
-    content = models.CharField()
+    content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=False)
