@@ -1,36 +1,27 @@
 {% extends "base/base.html" %}
 {% block content %}
 <div class="container mt-4 text-light">
-    <h2 class="mb-4">fix your Post</h2>
+    <h2 class="mb-4">Add New Post</h2>
     <form method="POST" class="bg-dark p-4 rounded border border-success">
         {% csrf_token %}
 
         <div class="mb-3">
             <label>Title</label>
-            <input value="" type="text" name="title" placeholder="Post title" class="form-control bg-dark text-light border-success">
+            <input value="{{post.title}}" type="text" name="title" placeholder="Post title" class="form-control bg-dark text-light border-success">
         </div>
 
-        <div class="mb-3">
-            <label>Author</label>
-            <select name="auther" class="form-select bg-dark text-light border-success">
-                <option value="">Select an author</option>
-                {% for u in user %}
-                    <option value="{{ u.username }}">{{ u.username }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label>Content</label>
-            <input type="text" name="context" placeholder="Write your content" class="form-control bg-dark text-light border-success">
-        </div>
+    <!-- Hidden input for Trix -->
+        <input id="id_content" type="hidden" name="content" value="{{ post.content|safe }}">
+        <trix-editor input="id_content"></trix-editor>
 
         <div class="form-check mb-3">
-            <input type="checkbox" name="published" class="form-check-input" id="publishCheck">
+        <input type="checkbox" name="published" class="form-check-input" id="publishCheck"
+            {% if post.published %}checked{% endif %}>
+
             <label class="form-check-label" for="publishCheck">Publish?</label>
         </div>
 
-        <button type="submit" class="btn btn-success">Add Post</button>
+        <button type="submit" class="btn btn-success">done</button>
     </form>
 </div>
 {% endblock %}

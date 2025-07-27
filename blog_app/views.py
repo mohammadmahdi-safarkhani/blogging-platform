@@ -29,12 +29,49 @@ def add_post(request):
             return render(request,'post/add_post.html')
     else:
          return render(request,'post/add_post.html')
+#-----------------------------------------------------
+def dashboard(request, username):
+    if not request.user.is_authenticated:
+        redirect('login')
+    user = CustomUser.objects.get(username=username)
+    post = Post.objects.filter(auther=user)
+    return render(request,'post/dashboard.html',{'user':user,'post':post})
+#-----------------------------------------------------
+
+def edit_post(request, pk):
+    if request.user.is_authenticated:
+        post = Post.objects.get(id=pk)
+
+        if request.method == 'POST':
+            title = request.POST['title']
+            content = request.POST['content']
+            published = 'published' in request.POST
+
+            # Update the existing post
+            post.title = title
+            post.content = content
+            post.published = published
+            post.save()
+            messages.success(request,'post edited successfully')
+
+            return redirect('dashboard', username=request.user.username)
+
+        return render(request, 'post/edit_post.html', {'post': post})
 
 
+def delete_post(request, pk):
+    if request.user.is_authenticated:
+        post = Post.objects.get(id=pk)
+        if request.method == 'POST':
+
+            post.delete()
+            messages.success(request,'post deleted successfully')
+            return redirect('dashboard', username=request.user.username)
 
 
+    return redirect('dashboard', username=request.user.username)
 
-
+    
 
 
 
