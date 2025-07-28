@@ -1,0 +1,22 @@
+{% extends "base/base.html" %}
+{% block content %}
+
+
+    {% for p in chosen_post %}
+        
+        <div class="card mb-3 bg-dark border-success text-light">
+            <div class="card-body">
+                <h3 class="card-title">{{ p.title }}</h3>
+                <p class="card-text">{% autoescape off %}{{ p.content }}{% endautoescape %}</p>
+                <div class=" small mt-3 ">
+                Posted by <strong>{{ p.auther.username }}</strong> on {{ p.created_at|date:"F j, Y, g:i a" }}
+                </div>
+            </div>
+        </div>
+        
+    {% endfor %}
+
+
+
+
+{% endblock %}

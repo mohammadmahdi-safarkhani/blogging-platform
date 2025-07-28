@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Post
 from account.models import CustomUser
 from django.contrib import messages
+from django.utils.text import slugify
 # Create your views here.
 
 def home_page(request):
@@ -51,6 +52,7 @@ def edit_post(request, pk):
             post.title = title
             post.content = content
             post.published = published
+            post.slug = slugify(title)
             post.save()
             messages.success(request,'post edited successfully')
 
@@ -71,7 +73,9 @@ def delete_post(request, pk):
 
     return redirect('dashboard', username=request.user.username)
 
-    
+def post_page(request, slug):
+    chosen_post = Post.objects.filter(slug=slug) 
+    return render(request, 'post/post_page.html', {'chosen_post': chosen_post})
 
 
 

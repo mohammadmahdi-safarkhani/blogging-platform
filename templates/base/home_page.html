@@ -27,7 +27,7 @@
         {% if p.published == True %}
         <div class="card mb-3 bg-dark border-success text-light">
             <div class="card-body">
-                <h5 class="card-title">{{ p.title }}</h5>
+                <h5 class="card-title"><a href="{% url 'post_page' p.slug %}" style="text-decoration:none;color:white;">{{ p.title }}</a></h5>
                 <p class="card-text">{{ p.content|safe|striptags|truncatechars:50 }}</p>
             </div>
         </div>
